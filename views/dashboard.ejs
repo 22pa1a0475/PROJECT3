@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel='stylesheet' href="static/style.css">
+</head>
+<body>
+    <h1>Welcome, <%= username %>!</h1>
+    <form action="/search" method="post">
+        <input type="text" name="word" placeholder="Enter a word" required>
+        <button type="submit">Search</button>
+    </form>
+    <div id="result">
+        <% if (definition) { %>
+            <h2>Word: <%= definition.word %></h2>
+            <% definition.meanings.forEach(meaning => { %>
+                <h3>Part of Speech: <%= meaning.partOfSpeech %></h3>
+                <% meaning.definitions.forEach(def => { %>
+                    <p>Definition: <%= def.definition %></p>
+                    <% if (def.example) { %>
+                        <blockquote>Example: <%= def.example %></blockquote>
+                    <% } %>
+                <% }); %>
+            <% }); %>
+        <% } %>
+    </div>
+    <a href="/logout">Logout</a>
+</body>
+</html>
